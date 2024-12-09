@@ -2,6 +2,17 @@ import time
 import os
 import json
 
+import os
+
+def clear_Terminal_Upon_Start():
+    if os.name == "nt":
+        os.system('cls')  
+    else:
+        os.system('clear') 
+        
+clear_Terminal_Upon_Start()
+
+
 DATA_FILE = "hospital_data.json"
 
 # Function to save data to a file
@@ -16,34 +27,6 @@ def load_data():
             return json.load(file)
     return None
 
-# Function to create a new hospital ID
-def create_hospital_id():
-    hospital_ID_Input = input("Input a six-digit numerical pin: ")
-    hospital_Name_Input = input("Input your name: ")
-
-    # Security question selection
-    print("You can choose from one of the two security questions.")
-    print("Press 1 for: 'What is the name of your first pet?'")
-    print("Press 2 for: 'What is the name of your mother?'")
-
-    question_choice = input("Enter your choice (1 or 2): ")
-
-    if question_choice == "1":
-        security_question = "What is the name of your first pet?"
-    elif question_choice == "2":
-        security_question = "What is the name of your mother?"
-    else:
-        print("Invalid choice. Defaulting to the first question.")
-        security_question = "What is the name of your first pet?"
-
-    security_answer = input(security_question + " ")
-
-    return {
-        "hospital_ID": hospital_ID_Input,
-        "hospital_name": hospital_Name_Input,
-        "security_question": security_question,
-        "security_answer": security_answer,
-    }
 
 # Requesting ID information
 def request_ID_info():
