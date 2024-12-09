@@ -2,7 +2,6 @@ import time
 import os
 import json
 
-
 DATA_FILE = "hospital_data.json"
 
 # Function to save data to a file
@@ -22,7 +21,7 @@ def create_hospital_id():
     hospital_ID_Input = input("Input a six-digit numerical pin: ")
     hospital_Name_Input = input("Input your name: ")
 
-    print("") # spacer
+    # Security question selection
     print("You can choose from one of the two security questions.")
     print("Press 1 for: 'What is the name of your first pet?'")
     print("Press 2 for: 'What is the name of your mother?'")
@@ -48,34 +47,27 @@ def create_hospital_id():
 
 # Requesting ID information
 def request_ID_info():
+    # Check if hospital ID exists in the data file
     data = load_data()
 
     if data:
         print("Hospital ID already exists.")
         return True
     else:
+        # No existing data, create new ID
         print("No existing ID found. Creating new ID...")
         new_data = create_hospital_id()
         save_data(new_data)
         print("New hospital ID saved successfully!")
         return True
-    
-def help_Instructoins():
-    print("")
-    print("")
-    print("")
-    print("Help!")
 
-
+# Handle input for help or other operations
 user_input = input("Enter command: ")
 
-if user_input == "ID INFO":
-    if request_ID_info():
-        print("Bool == true: ID creation or loading was successful.")
-    else:
-        print("ID creation or loading failed.")
-
-
 if user_input == "!help":
-    help_Instructoins()
-    
+    if request_ID_info():
+        # If ID exists or is created, load and display the data
+        data = load_data()
+        print("Hospital Data:", data)
+else:
+    print("Printing...")
